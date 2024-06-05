@@ -1,39 +1,35 @@
+<!--toc:start-->
+- [Challenge Status](#challenge-status)
+- [Running the Server](#running-the-server)
+<!--toc:end-->
+
 [![progress-banner](https://backend.codecrafters.io/progress/http-server/86635622-46d8-4e71-bff5-ac8a170d13cb)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
-This is a starting point for Rust solutions to the
+This is a repo for Rust solutions to the
 ["Build Your Own HTTP server" Challenge](https://app.codecrafters.io/courses/http-server/overview).
 
-[HTTP](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol) is the
-protocol that powers the web. In this challenge, you'll build a HTTP/1.1 server
-that is capable of serving multiple clients.
+# Challenge Status
 
-Along the way you'll learn about TCP servers,
-[HTTP request syntax](https://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html),
-and more.
+The entry point for this `http-server` implementation is in `src/main.rs`. This simple `http-server`
+implementation includes:
+- [x] binding TCP listener to `127.0.0.1:4221`
+- [x] responding with a `200 OK` status code to `GET` requests to `/`
+- [x] responding with a `404 Not Found` status code to `GET` requests to not known paths
+- [x] echoing in the body a string passed by user as the part of the path from `GET` requests to `/echo/<string_to_return>`
+- [x] returning in the body the value of the `User-Agent` header in `GET` requests to `/user-agent`
+- [ ] implementing support for concurrent connections handling using multitheading
+- [ ] implementing the `/files/{filename}` endpoint that returns on `GET` requests the content of the file with the name
+`filename` in the specified directory
+- [ ] implementing the `/files/{filename}` endpoint that saves on `POST` requests the content of the file to the file with
+the name `filename` in the specified directory
+- [ ] implementing compression support for the server
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[codecrafters.io](https://codecrafters.io) to try the challenge.
-
-# Passing the first stage
-
-The entry point for your HTTP server implementation is in `src/main.rs`. Study
-and uncomment the relevant code, and push your changes to pass the first stage:
-
-```sh
-git add .
-git commit -m "pass 1st stage" # any msg
-git push origin master
-```
-
-Time to move on to the next stage!
-
-# Stage 2 & beyond
-
-Note: This section is for stages 2 and beyond.
+# Running the Server
 
 1. Ensure you have `cargo (1.70)` installed locally
 1. Run `./your_server.sh` to run your program, which is implemented in
    `src/main.rs`. This command compiles your Rust project, so it might be slow
-   the first time you run it. Subsequent runs will be fast.
-1. Commit your changes and run `git push origin master` to submit your solution
-   to CodeCrafters. Test output will be streamed to your terminal.
+   the first time you run the `http-server` on `http://127.0.0.1:4221`. Subsequent runs will be fast.
+1. Open a new tab in the terminal and send requests to the server using `curl` or `netcat`. To test the performance of the server,
+you can use the [`oha`](https://github.com/hatoo/oha) CLI tool to send a large number of concurrent requests to the server and
+get the performance metrics in a nice TUI interface.

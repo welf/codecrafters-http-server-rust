@@ -1,8 +1,4 @@
-use std::{
-    io::{BufRead, BufReader},
-    net::TcpStream,
-    str::Lines,
-};
+use std::str::Lines;
 
 use super::{Method, ParseRequestError, ParseRequestErrorKind};
 
@@ -22,7 +18,7 @@ impl TryFrom<&str> for Request {
         let (first_line, mut rest) = get_next_request_line(request_str)?;
 
         // Split the first line into the method and the rest of the line
-        let (method, first_line) = first_line.split_once(' ').ok_or(ParseRequestError {
+        let (method, rest_of_line) = get_next_word(first_line).ok_or(ParseRequestError {
             kind: ParseRequestErrorKind::InvalidRequest,
         })?;
 
@@ -30,14 +26,21 @@ impl TryFrom<&str> for Request {
         let method = method.parse::<Method>()?;
 
         // Split the rest of the first line into the URI and the protocol
-        let (uri, protocol) = first_line.split_once(' ').ok_or(ParseRequestError {
+        let (uri, protocol) = get_next_word(rest_of_line).ok_or(ParseRequestError {
             kind: ParseRequestErrorKind::InvalidRequest,
         })?;
+
+        dbg!(&protocol);
 
         let uri = uri.to_string();
 
         // Ensure the protocol is HTTP/1.1
         if protocol != "HTTP/1.1" {
+            if protocol.is_empty() {
+                return Err(ParseRequestError {
+                    kind: ParseRequestErrorKind::InvalidRequest,
+                });
+            }
             return Err(ParseRequestError {
                 kind: ParseRequestErrorKind::InvalidProtocol,
             });
@@ -107,10 +110,26 @@ mod tests {
 
     #[test]
     fn test_get_next_word() {
-        assert_eq!(get_next_word("GET / HTTP/1.1"), Some(("GET", "/ HTTP/1.1")));
-        assert_eq!(get_next_word("GET /"), Some(("GET", "/")));
-        assert_eq!(get_next_word("GET"), Some(("GET", "")));
-        assert_eq!(get_next_word(""), None);
+        assert_eq!(
+            get_next_word("GET / HTTP/1.1"),
+            Some(("GET", "/ HTTP/1.1")),
+            "String slice incremental parsing"
+        );
+        assert_eq!(
+            get_next_word("GET /"),
+            Some(("GET", "/")),
+            "String slice incremental parsing"
+        );
+        assert_eq!(
+            get_next_word("GET"),
+            Some(("GET", "")),
+            "String slice incremental parsing"
+        );
+        assert_eq!(
+            get_next_word(""),
+            None,
+            "String slice incremental parsing termiantion"
+        );
     }
 
     #[test]

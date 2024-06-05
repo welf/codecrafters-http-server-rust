@@ -1,8 +1,8 @@
 use std::fmt::{Display, Write};
 
-use super::status_code::{self, StatusCode};
+use super::status_code::StatusCode;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Clone, Default)]
 pub struct Response {
     pub status_code: StatusCode,
     pub headers: Vec<(String, String)>,
@@ -64,17 +64,19 @@ impl Display for Response {
 mod tests {
     use crate::http::ResponseBuilder;
 
-    use super::*;
-
     #[test]
     fn response_to_bytes_vec() {
         let response = ResponseBuilder::ok()
             .header("Content-Type", "text/plain")
-            .body(b"Hello, World!".to_vec())
+            .body("Hello, World!")
             .build();
-
         let expected = b"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!".to_vec();
-        assert_eq!(response.to_bytes_vec(), expected);
+
+        assert_eq!(
+            response.to_bytes_vec(),
+            expected,
+            "Response should be converted to bytes vector"
+        );
     }
 
     #[test]
@@ -83,8 +85,12 @@ mod tests {
             .header("Content-Type", "text/plain")
             .body(b"Hello, World!".to_vec())
             .build();
-
         let expected = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!";
-        assert_eq!(response.to_string(), expected);
+
+        assert_eq!(
+            response.to_string(),
+            expected,
+            "Response should be converted to string"
+        );
     }
 }
