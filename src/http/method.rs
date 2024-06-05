@@ -3,7 +3,7 @@ use std::{
     str::FromStr,
 };
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Method {
     Get,
     Post,

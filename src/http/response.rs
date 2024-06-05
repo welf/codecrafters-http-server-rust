@@ -1,79 +1,90 @@
-use std::fmt::Display;
+use std::fmt::{Display, Write};
 
-use super::status_code::StatusCode;
+use super::status_code::{self, StatusCode};
 
+#[derive(Debug)]
 pub struct Response {
-    status_code: StatusCode,
-    headers: Vec<(String, String)>,
-    body: Vec<u8>,
+    pub status_code: StatusCode,
+    pub headers: Vec<(String, String)>,
+    pub body: Option<Vec<u8>>,
 }
 
 impl Response {
-    pub fn new(status_code: StatusCode) -> Self {
-        Response {
-            status_code,
-            headers: Vec::new(),
-            body: Vec::new(),
+    pub fn to_bytes_vec(&self) -> Vec<u8> {
+        let mut response: Vec<u8> = Vec::new();
+
+        let status_code: String = format!("{}", self.status_code);
+
+        let mut headers: Vec<u8> = self.headers.iter().fold(vec![], |mut acc, (k, v)| {
+            acc.extend_from_slice(k.as_bytes());
+            acc.extend_from_slice(b": ");
+            acc.extend_from_slice(v.as_bytes());
+            acc.extend_from_slice(b"\r\n");
+            acc
+        });
+
+        // Add additional CLRF after all headers
+        headers.extend_from_slice(b"\r\n");
+
+        if let Some(body) = &self.body {
+            response.extend_from_slice(status_code.as_bytes());
+            response.extend(headers);
+            response.extend_from_slice(body);
+        } else {
+            response.extend_from_slice(status_code.as_bytes());
+            response.extend(headers);
         }
-    }
 
-    pub fn ok() -> Self {
-        Self::new(StatusCode::Ok)
-    }
-
-    pub fn bad_request() -> Self {
-        Self::new(StatusCode::BadRequest)
-    }
-
-    pub fn not_found() -> Self {
-        Self::new(StatusCode::NotFound)
-    }
-
-    pub fn internal_server_error() -> Self {
-        Self::new(StatusCode::InternalServerError)
-    }
-
-    pub fn set_status_code(&mut self, status_code: StatusCode) -> &mut Self {
-        self.status_code = status_code;
-        self
-    }
-
-    pub fn set_header(&mut self, key: &str, value: &str) -> &mut Self {
-        self.headers.push((key.to_string(), value.to_string()));
-        self
-    }
-
-    pub fn set_body(&mut self, body: Vec<u8>) -> &mut Self {
-        self.body = body;
-        self
-    }
-
-    pub fn status_code(&self) -> &StatusCode {
-        &self.status_code
-    }
-
-    pub fn headers(&self) -> &Vec<(String, String)> {
-        &self.headers
-    }
-
-    pub fn body(&self) -> &Vec<u8> {
-        &self.body
+        response
     }
 }
 
 impl Display for Response {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut headers = String::new();
+        let headers = self.headers.iter().fold(String::new(), |mut acc, (k, v)| {
+            let _ = write!(acc, "{}: {}\r\n", k, v);
+            acc
+        });
 
-        for (key, value) in self.headers.iter() {
-            headers.push_str(&format!("{}: {}\r\n", key, value));
+        if let Some(body) = &self.body {
+            write!(
+                f,
+                "{}{}\r\n{}",
+                self.status_code,
+                headers,
+                String::from_utf8_lossy(body)
+            )
+        } else {
+            write!(f, "{}{}\r\n", self.status_code, headers)
         }
+    }
+}
 
-        write!(
-            f,
-            "HTTP/1.1 {} {}\r\n\r\n",
-            self.status_code as u16,
-            self.status_code.message()
-        )
+#[cfg(test)]
+mod tests {
+    use crate::http::ResponseBuilder;
+
+    use super::*;
+
+    #[test]
+    fn response_to_bytes_vec() {
+        let response = ResponseBuilder::ok()
+            .header("Content-Type", "text/plain")
+            .body(b"Hello, World!".to_vec())
+            .build();
+
+        let expected = b"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!".to_vec();
+        assert_eq!(response.to_bytes_vec(), expected);
+    }
+
+    #[test]
+    fn response_to_string() {
+        let response = ResponseBuilder::ok()
+            .header("Content-Type", "text/plain")
+            .body(b"Hello, World!".to_vec())
+            .build();
+
+        let expected = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!";
+        assert_eq!(response.to_string(), expected);
     }
 }

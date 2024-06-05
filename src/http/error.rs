@@ -3,41 +3,52 @@ use std::{fmt::Display, str::Utf8Error};
 use super::method::MethodError;
 
 #[derive(Debug)]
-pub enum ParseRequestError {
-    Encoding,
-    Method,
-    Protocol,
-    Request,
-    Network,
+pub struct ParseRequestError {
+    pub kind: ParseRequestErrorKind,
+}
+
+#[derive(Debug, PartialEq)]
+pub enum ParseRequestErrorKind {
+    EncodingError,
+    InvalidMethod,
+    InvalidProtocol,
+    InvalidRequest,
+    NetworkError,
 }
 
 impl ParseRequestError {
     pub const fn message(&self) -> &'static str {
-        match self {
-            Self::Request => "Invalid Request",
-            Self::Encoding => "Invalid Request Encoding",
-            Self::Method => "Invalid Request Method",
-            Self::Protocol => "Invalid Request Protocol",
-            Self::Network => "Network I/O Error",
+        match self.kind {
+            ParseRequestErrorKind::InvalidRequest => "Invalid Request",
+            ParseRequestErrorKind::EncodingError => "Invalid Request Encoding",
+            ParseRequestErrorKind::InvalidMethod => "Invalid Request Method",
+            ParseRequestErrorKind::InvalidProtocol => "Invalid Request Protocol",
+            ParseRequestErrorKind::NetworkError => "Network I/O Error",
         }
     }
 }
 
 impl From<Utf8Error> for ParseRequestError {
     fn from(_: Utf8Error) -> Self {
-        Self::Encoding
+        Self {
+            kind: ParseRequestErrorKind::EncodingError,
+        }
     }
 }
 
 impl From<MethodError> for ParseRequestError {
     fn from(_: MethodError) -> Self {
-        Self::Method
+        Self {
+            kind: ParseRequestErrorKind::InvalidMethod,
+        }
     }
 }
 
 impl From<std::io::Error> for ParseRequestError {
     fn from(_: std::io::Error) -> Self {
-        Self::Network
+        Self {
+            kind: ParseRequestErrorKind::NetworkError,
+        }
     }
 }
 

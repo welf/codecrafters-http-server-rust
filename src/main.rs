@@ -4,7 +4,7 @@ use std::{
     net::{TcpListener, TcpStream},
 };
 
-use http::{ParseRequestError, Response};
+use http::{ParseRequestError, Response, ResponseBuilder};
 
 mod http;
 
@@ -14,10 +14,10 @@ fn main() {
     for stream in listener.incoming() {
         match stream {
             Ok(mut stream) => {
-                let response_string = handle_connection(&mut stream).unwrap();
+                let response = handle_connection(&mut stream).unwrap();
 
                 stream
-                    .write_all(response_string.as_bytes())
+                    .write_all(response.to_bytes_vec().as_slice())
                     .expect("Failed to write to stream");
 
                 stream.flush().expect("Failed to flush stream");
@@ -29,16 +29,32 @@ fn main() {
     }
 }
 
-fn handle_connection(stream: &mut TcpStream) -> Result<String, ParseRequestError> {
+fn handle_connection(stream: &mut TcpStream) -> Result<Response, ParseRequestError> {
     let mut buf_reader = BufReader::new(stream);
 
     let request_str = std::str::from_utf8(buf_reader.fill_buf()?)?;
 
     let request = http::Request::try_from(request_str)?;
 
-    let response = match request.path() {
-        "/" => format!("{}", Response::ok()),
-        _ => format!("{}", Response::not_found()),
+    let response = match request.uri.as_str() {
+        "/" => ResponseBuilder::ok().build(),
+        path => {
+            if path.starts_with("/echo") {
+                let response = if let Some((uri, content)) = path[1..].split_once('/') {
+                    ResponseBuilder::ok()
+                        .body(content.as_bytes().to_vec())
+                        .header("Content-Type", "text/plain")
+                        .build()
+                } else {
+                    ResponseBuilder::ok()
+                        .header("Content-Type", "text/plain")
+                        .build()
+                };
+                response
+            } else {
+                ResponseBuilder::not_found().build()
+            }
+        }
     };
 
     Ok(response)

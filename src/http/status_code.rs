@@ -1,7 +1,8 @@
 use std::fmt::{Display, Result as FmtResult};
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, PartialEq, Clone, Copy, Eq, Default)]
 pub enum StatusCode {
+    #[default]
     Ok = 200,
     BadRequest = 400,
     NotFound = 404,
@@ -21,6 +22,6 @@ impl StatusCode {
 
 impl Display for StatusCode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> FmtResult {
-        write!(f, "{}", *self as u16)
+        write!(f, "HTTP/1.1 {} {}\r\n", *self as u16, self.message())
     }
 }
