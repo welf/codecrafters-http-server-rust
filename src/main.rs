@@ -38,6 +38,21 @@ fn handle_connection(stream: &mut TcpStream) -> Result<Response, ParseRequestErr
 
     let response = match request.uri.as_str() {
         "/" => ResponseBuilder::ok().build(),
+        "/user-agent" => {
+            let user_agent = request
+                .headers
+                .iter()
+                .find(|(k, _)| k == "User-Agent")
+                .map(|(_, v)| v);
+
+            match user_agent {
+                Some(user_agent) => ResponseBuilder::ok()
+                    .header("Content-Type", "text/plain")
+                    .body(user_agent.as_bytes().to_vec())
+                    .build(),
+                None => ResponseBuilder::bad_request().build(),
+            }
+        }
         path => {
             if path.starts_with("/echo/") {
                 // Remove the "/echo/" prefix from the path
