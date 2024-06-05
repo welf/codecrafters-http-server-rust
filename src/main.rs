@@ -40,7 +40,8 @@ fn handle_connection(stream: &mut TcpStream) -> Result<Response, ParseRequestErr
         "/" => ResponseBuilder::ok().build(),
         path => {
             if path.starts_with("/echo/") {
-                let content = path.replace("/echo/", "").as_bytes().to_vec();
+                // Remove the "/echo/" prefix from the path
+                let content = path.replacen("/echo/", "", 1).as_bytes().to_vec();
 
                 let response_builder = ResponseBuilder::ok().header("Content-Type", "text/plain");
 
