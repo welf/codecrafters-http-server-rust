@@ -39,18 +39,16 @@ fn handle_connection(stream: &mut TcpStream) -> Result<Response, ParseRequestErr
     let response = match request.uri.as_str() {
         "/" => ResponseBuilder::ok().build(),
         path => {
-            if path.starts_with("/echo") {
-                let response = if let Some((uri, content)) = path[1..].split_once('/') {
-                    ResponseBuilder::ok()
-                        .body(content.as_bytes().to_vec())
-                        .header("Content-Type", "text/plain")
-                        .build()
+            if path.starts_with("/echo/") {
+                let content = path.replace("/echo/", "").as_bytes().to_vec();
+
+                let response_builder = ResponseBuilder::ok().header("Content-Type", "text/plain");
+
+                if content.is_empty() {
+                    response_builder.build()
                 } else {
-                    ResponseBuilder::ok()
-                        .header("Content-Type", "text/plain")
-                        .build()
-                };
-                response
+                    response_builder.body(content).build()
+                }
             } else {
                 ResponseBuilder::not_found().build()
             }
