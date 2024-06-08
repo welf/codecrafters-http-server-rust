@@ -6,7 +6,6 @@
 [![progress-banner](https://backend.codecrafters.io/progress/http-server/86635622-46d8-4e71-bff5-ac8a170d13cb)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
 This is a repo for Rust solutions to the
-["Build Your Own HTTP server" Challenge](https://app.codecrafters.io/courses/http-server/overview).
 
 # Challenge Status
 
@@ -17,7 +16,7 @@ implementation includes:
 - [x] responding with a `404 Not Found` status code to `GET` requests to not known paths
 - [x] echoing in the body a string passed by user as the part of the path from `GET` requests to `/echo/<string_to_return>`
 - [x] returning in the body the value of the `User-Agent` header in `GET` requests to `/user-agent`
-- [ ] implementing support for concurrent connections handling using multitheading
+- [x] implementing support for concurrent connections handling using multitheading
 - [ ] implementing the `/files/{filename}` endpoint that returns on `GET` requests the content of the file with the name
 `filename` in the specified directory
 - [ ] implementing the `/files/{filename}` endpoint that saves on `POST` requests the content of the file to the file with
