@@ -32,6 +32,7 @@ impl ThreadPool {
 
         let (tx, rx) = mpsc::channel::<Job>();
 
+        // Wrap the receiver in an Arc and a Mutex so we can share it among the workers
         let receiver = Arc::new(Mutex::new(rx));
 
         for id in 0..size {
@@ -62,6 +63,7 @@ impl Worker {
                     .expect("Mutex is in a poisoning state!")
                     .recv()
                     .expect("Sender was dropped!");
+
                 println!("Worker {id} got a job; executing...");
 
                 job();

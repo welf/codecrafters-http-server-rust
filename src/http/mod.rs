@@ -4,7 +4,6 @@ pub use self::request::Request;
 pub use self::response::Response;
 pub use self::response_builder::ResponseBuilder;
 pub use self::status_code::StatusCode;
-pub use self::thread_pool::ThreadPool;
 
 mod error;
 mod method;

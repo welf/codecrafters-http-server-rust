@@ -1,0 +1,47 @@
+
+*** src/http/response_builder.rs:99:9: replace ResponseBuilder<S>::with -> Self with Default::default()
+
+*** mutation diff:
+--- src/http/response_builder.rs
++++ replace ResponseBuilder<S>::with -> Self with Default::default()
+@@ -91,20 +91,17 @@
+     ///
+     /// let response_string = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nX-Custom-Header: value\r\nKeep-Alive: timeout=5, max=1000\r\nContent-Length: 0\r\n\r\n";
+     ///
+     /// assert_eq!(response.headers.len(), expected_headers.len());
+     /// assert_eq!(response.headers, expected_headers);
+     /// assert_eq!(response.to_string(), response_string);
+     /// ```
+     pub fn with<T: Into<String>>(self, part: impl IntoResponsePart<T>) -> Self {
+-        match part.into_response_part() {
+-            ResponsePart::Header(key, value) => self.header(key, value),
+-            ResponsePart::Headers(headers) => self.headers(headers),
+-        }
++        Default::default() /* ~ changed by cargo-mutants ~ */
+     }
+ 
+     fn header(mut self, key: impl Into<String>, value: impl Into<String>) -> Self {
+         let key: String = key.into();
+ 
+         if key.as_str() != "Content-Length" {
+             if let Some(ref mut headers) = self.headers {
+                 headers.push((key, value.into()));
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+error[E0277]: the trait bound `response_builder::ResponseBuilder<S>: std::default::Default` is not satisfied
+  --> src/http/response_builder.rs:99:9
+   |
+99 |         Default::default() /* ~ changed by cargo-mutants ~ */
+   |         ^^^^^^^^^^^^^^^^^^ the trait `std::default::Default` is not implemented for `response_builder::ResponseBuilder<S>`
+   |
+help: consider introducing a `where` clause, but there might be an alternative better way to express this requirement
+   |
+62 | impl<S> ResponseBuilder<S> where response_builder::ResponseBuilder<S>: std::default::Default {
+   |                            +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `http-server-starter-rust` (bin "http-server-starter-rust" test) due to 1 previous error
+
+*** result: Failure(101)

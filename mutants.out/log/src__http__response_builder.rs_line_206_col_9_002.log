@@ -1,0 +1,39 @@
+
+*** src/http/response_builder.rs:206:9: replace <impl IntoResponsePart for (T, T)>::into_response_part -> ResponsePart<T> with ResponsePart::from(Default::default())
+
+*** mutation diff:
+--- src/http/response_builder.rs
++++ replace <impl IntoResponsePart for (T, T)>::into_response_part -> ResponsePart<T> with ResponsePart::from(Default::default())
+@@ -198,17 +198,17 @@
+ // Trait to convert header value(s) into a response part
+ pub trait IntoResponsePart<T> {
+     fn into_response_part(self) -> ResponsePart<T>;
+ }
+ 
+ // Implement the IntoResponsePart trait for tuples of two elements to represent a single header
+ impl<T: Into<String>> IntoResponsePart<T> for (T, T) {
+     fn into_response_part(self) -> ResponsePart<T> {
+-        ResponsePart::Header(self.0, self.1)
++        ResponsePart::from(Default::default()) /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ // Implement the IntoResponsePart trait for vectors of tuples of two elements to represent multiple headers
+ impl<T: Into<String>> IntoResponsePart<T> for Vec<(T, T)> {
+     fn into_response_part(self) -> ResponsePart<T> {
+         ResponsePart::Headers(self)
+     }
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+error[E0277]: the trait bound `ResponsePart<T>: std::default::Default` is not satisfied
+   --> src/http/response_builder.rs:206:28
+    |
+206 |         ResponsePart::from(Default::default()) /* ~ changed by cargo-mutants ~ */
+    |                            ^^^^^^^^^^^^^^^^^^ the trait `std::default::Default` is not implemented for `ResponsePart<T>`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `http-server-starter-rust` (bin "http-server-starter-rust" test) due to 1 previous error
+
+*** result: Failure(101)

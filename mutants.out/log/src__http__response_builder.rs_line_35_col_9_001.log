@@ -1,0 +1,67 @@
+
+*** src/http/response_builder.rs:35:9: replace ResponseBuilder<MissingStatusCode>::internal_server_error -> ResponseBuilder<StatusCode> with ResponseBuilder::new(Default::default())
+
+*** mutation diff:
+--- src/http/response_builder.rs
++++ replace ResponseBuilder<MissingStatusCode>::internal_server_error -> ResponseBuilder<StatusCode> with ResponseBuilder::new(Default::default())
+@@ -27,20 +27,17 @@
+     pub fn bad_request() -> ResponseBuilder<StatusCode> {
+         ResponseBuilder {
+             status_code: StatusCode::BadRequest,
+             ..Default::default()
+         }
+     }
+ 
+     pub fn internal_server_error() -> ResponseBuilder<StatusCode> {
+-        ResponseBuilder {
+-            status_code: StatusCode::InternalServerError,
+-            ..Default::default()
+-        }
++        ResponseBuilder::new(Default::default()) /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ impl ResponseBuilder<StatusCode> {
+     pub fn build(self) -> Response {
+         // Calculate the Content-Length header value
+         let content_length = self.body.as_ref().map(|b| b.len()).unwrap_or(0);
+         let mut headers = self.headers.unwrap_or_default();
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+error[E0599]: no function or associated item named `new` found for struct `response_builder::ResponseBuilder` in the current scope
+  --> src/http/response_builder.rs:35:26
+   |
+5  | pub struct ResponseBuilder<S> {
+   | ----------------------------- function or associated item `new` not found for this struct
+...
+35 |         ResponseBuilder::new(Default::default()) /* ~ changed by cargo-mutants ~ */
+   |                          ^^^ function or associated item not found in `ResponseBuilder<_>`
+   |
+note: if you're trying to build a new `response_builder::ResponseBuilder<_>` consider using one of the following associated functions:
+      response_builder::ResponseBuilder::<MissingStatusCode>::ok
+      response_builder::ResponseBuilder::<MissingStatusCode>::not_found
+      response_builder::ResponseBuilder::<MissingStatusCode>::bad_request
+      response_builder::ResponseBuilder::<MissingStatusCode>::internal_server_error
+  --> src/http/response_builder.rs:13:5
+   |
+13 |     pub fn ok() -> ResponseBuilder<StatusCode> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+20 |     pub fn not_found() -> ResponseBuilder<StatusCode> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+27 |     pub fn bad_request() -> ResponseBuilder<StatusCode> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+34 |     pub fn internal_server_error() -> ResponseBuilder<StatusCode> {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: items from traits can only be used if the trait is implemented and in scope
+   = note: the following trait defines an item `new`, perhaps you need to implement it:
+           candidate #1: `parking_lot_core::thread_parker::ThreadParkerT`
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `http-server-starter-rust` (bin "http-server-starter-rust" test) due to 1 previous error
+
+*** result: Failure(101)

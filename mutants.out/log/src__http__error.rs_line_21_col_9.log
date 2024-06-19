@@ -1,0 +1,70 @@
+
+*** src/http/error.rs:21:9: replace ParseRequestError::message -> &'static str with "xyzzy"
+
+*** mutation diff:
+--- src/http/error.rs
++++ replace ParseRequestError::message -> &'static str with "xyzzy"
+@@ -13,23 +13,17 @@
+     InvalidMethod,
+     InvalidProtocol,
+     InvalidRequest,
+     NetworkError,
+ }
+ 
+ impl ParseRequestError {
+     pub const fn message(&self) -> &'static str {
+-        match self.kind {
+-            ParseRequestErrorKind::InvalidRequest => "Invalid Request",
+-            ParseRequestErrorKind::EncodingError => "Invalid Request Encoding",
+-            ParseRequestErrorKind::InvalidMethod => "Invalid Request Method",
+-            ParseRequestErrorKind::InvalidProtocol => "Invalid Request Protocol",
+-            ParseRequestErrorKind::NetworkError => "Network I/O Error",
+-        }
++        "xyzzy" /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ impl From<Utf8Error> for ParseRequestError {
+     fn from(_: Utf8Error) -> Self {
+         Self {
+             kind: ParseRequestErrorKind::EncodingError,
+         }
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.23s
+  Executable unittests src/main.rs (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/target/debug/deps/http_server_starter_rust-21207571861bdde5)
+
+*** result: Success
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running unittests src/main.rs (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/target/debug/deps/http_server_starter_rust-21207571861bdde5)
+
+running 20 tests
+test http::request::tests::test_get_next_word ... ok
+test handlers::tests::test_get_echo_response ... ok
+test http::request::tests::test_get_next_request_line ... ok
+test handlers::tests::test_get_user_agent_response ... ok
+test handlers::tests::test_get_user_agent_response_no_user_agent ... ok
+test http::request::tests::test_parse_header ... ok
+test http::response::tests::test_response_to_bytes_vec ... ok
+test http::request::tests::test_try_from_request ... ok
+test http::response::tests::test_response_to_string ... ok
+test http::response_builder::tests::test_response_builder_bad_request ... ok
+test http::response_builder::tests::test_response_builder_body ... ok
+test http::response_builder::tests::test_response_builder_default ... ok
+test http::response_builder::tests::test_response_builder_internal_server_error ... ok
+test http::response_builder::tests::test_response_builder_not_found ... ok
+test http::response_builder::tests::test_response_builder_ok ... ok
+test http::response_builder::tests::test_response_builder_with ... ok
+test http::response_builder::tests::test_without_content_length_header ... ok
+test http::status_code::tests::status_code_display ... ok
+test http::status_code::tests::status_code_message ... ok
+test handlers::tests::test_get_file_response ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+*** result: Success

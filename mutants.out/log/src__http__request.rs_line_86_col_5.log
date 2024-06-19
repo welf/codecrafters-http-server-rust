@@ -1,0 +1,44 @@
+
+*** src/http/request.rs:86:5: replace get_next_request_line -> Result<(&str, Lines), ParseRequestError> with Ok(("xyzzy", Default::default()))
+
+*** mutation diff:
+--- src/http/request.rs
++++ replace get_next_request_line -> Result<(&str, Lines), ParseRequestError> with Ok(("xyzzy", Default::default()))
+@@ -78,22 +78,17 @@
+             headers,
+             body,
+         })
+         // todo!()
+     }
+ }
+ 
+ fn get_next_request_line(request_str: &str) -> Result<(&str, Lines), ParseRequestError> {
+-    let mut lines = request_str.lines();
+-    let first_line = lines.next().ok_or(ParseRequestError {
+-        kind: ParseRequestErrorKind::InvalidRequest,
+-    });
+-
+-    Ok((first_line?, lines))
++    Ok(("xyzzy", Default::default())) /* ~ changed by cargo-mutants ~ */
+ }
+ 
+ fn get_next_word(request_line: &str) -> Option<(&str, &str)> {
+     if request_line.is_empty() {
+         return None;
+     }
+ 
+     for (i, c) in request_line.chars().enumerate() {
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+error[E0277]: the trait bound `std::str::Lines<'_>: std::default::Default` is not satisfied
+  --> src/http/request.rs:86:18
+   |
+86 |     Ok(("xyzzy", Default::default())) /* ~ changed by cargo-mutants ~ */
+   |                  ^^^^^^^^^^^^^^^^^^ the trait `std::default::Default` is not implemented for `std::str::Lines<'_>`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `http-server-starter-rust` (bin "http-server-starter-rust" test) due to 1 previous error
+
+*** result: Failure(101)

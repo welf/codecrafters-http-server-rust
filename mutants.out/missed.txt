@@ -1,0 +1,11 @@
+src/http/error.rs:21:9: replace ParseRequestError::message -> &'static str with "xyzzy"
+src/main.rs:12:5: replace main with ()
+src/http/thread_pool.rs:50:9: replace ThreadPool::execute with ()
+src/main.rs:16:38: replace + with * in main
+src/handlers.rs:12:5: replace handle_connection -> Result<(), ParseRequestError> with Ok(())
+src/http/method.rs:40:9: replace <impl Display for Method>::fmt -> fmt::Result with Ok(Default::default())
+src/http/error.rs:21:9: replace ParseRequestError::message -> &'static str with ""
+src/http/response_builder.rs:14:9: replace ResponseBuilder<MissingStatusCode>::ok -> ResponseBuilder<StatusCode> with ResponseBuilder::from(Default::default())
+src/http/error.rs:57:9: replace <impl Display for ParseRequestError>::fmt -> std::fmt::Result with Ok(Default::default())
+src/main.rs:16:38: replace + with - in main
+src/main.rs:15:29: replace == with != in main

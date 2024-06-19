@@ -1,0 +1,2252 @@
+[
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/error.rs",
+    "function": {
+      "function_name": "ParseRequestError::message",
+      "return_type": "-> &'static str",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 5
+        },
+        "end": {
+          "line": 28,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 21,
+        "column": 9
+      },
+      "end": {
+        "line": 27,
+        "column": 10
+      }
+    },
+    "replacement": "\"xyzzy\"",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "parse_header",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 108,
+          "column": 1
+        },
+        "end": {
+          "line": 110,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 109,
+        "column": 5
+      },
+      "end": {
+        "line": 109,
+        "column": 28
+      }
+    },
+    "replacement": "Some((\"xyzzy\", \"xyzzy\"))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "<impl TryFrom for Request>::try_from",
+      "return_type": "-> Result<Self, Self::Error>",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 5
+        },
+        "end": {
+          "line": 82,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 18,
+        "column": 9
+      },
+      "end": {
+        "line": 80,
+        "column": 11
+      }
+    },
+    "replacement": "Ok(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/main.rs",
+    "function": {
+      "function_name": "main",
+      "return_type": "",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 1
+        },
+        "end": {
+          "line": 29,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 12,
+        "column": 5
+      },
+      "end": {
+        "line": 28,
+        "column": 6
+      }
+    },
+    "replacement": "()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "parse_header",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 108,
+          "column": 1
+        },
+        "end": {
+          "line": 110,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 109,
+        "column": 5
+      },
+      "end": {
+        "line": 109,
+        "column": 28
+      }
+    },
+    "replacement": "Some((\"\", \"\"))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_word",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 94,
+          "column": 1
+        },
+        "end": {
+          "line": 106,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 100,
+        "column": 14
+      },
+      "end": {
+        "line": 100,
+        "column": 16
+      }
+    },
+    "replacement": "!=",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::ok",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 18,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 17,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::from_iter([Default::default()])",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "parse_header",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 108,
+          "column": 1
+        },
+        "end": {
+          "line": 110,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 109,
+        "column": 5
+      },
+      "end": {
+        "line": 109,
+        "column": 28
+      }
+    },
+    "replacement": "Some((\"xyzzy\", \"\"))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::not_found",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 5
+        },
+        "end": {
+          "line": 25,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 21,
+        "column": 9
+      },
+      "end": {
+        "line": 24,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::from(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_request_line",
+      "return_type": "-> Result<(&str, Lines), ParseRequestError>",
+      "span": {
+        "start": {
+          "line": 85,
+          "column": 1
+        },
+        "end": {
+          "line": 92,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 86,
+        "column": 5
+      },
+      "end": {
+        "line": 91,
+        "column": 29
+      }
+    },
+    "replacement": "Ok((\"xyzzy\", Default::default()))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::bad_request",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 5
+        },
+        "end": {
+          "line": 32,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 28,
+        "column": 9
+      },
+      "end": {
+        "line": 31,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::from_iter([Default::default()])",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/thread_pool.rs",
+    "function": {
+      "function_name": "ThreadPool::execute",
+      "return_type": "",
+      "span": {
+        "start": {
+          "line": 49,
+          "column": 5
+        },
+        "end": {
+          "line": 54,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 50,
+        "column": 9
+      },
+      "end": {
+        "line": 53,
+        "column": 59
+      }
+    },
+    "replacement": "()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_word",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 94,
+          "column": 1
+        },
+        "end": {
+          "line": 106,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 95,
+        "column": 5
+      },
+      "end": {
+        "line": 105,
+        "column": 29
+      }
+    },
+    "replacement": "Some((\"\", \"xyzzy\"))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::not_found",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 5
+        },
+        "end": {
+          "line": 25,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 21,
+        "column": 9
+      },
+      "end": {
+        "line": 24,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::new(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::internal_server_error",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 34,
+          "column": 5
+        },
+        "end": {
+          "line": 39,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 35,
+        "column": 9
+      },
+      "end": {
+        "line": 38,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::new()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/main.rs",
+    "function": {
+      "function_name": "main",
+      "return_type": "",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 1
+        },
+        "end": {
+          "line": 29,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 16,
+        "column": 38
+      },
+      "end": {
+        "line": 16,
+        "column": 39
+      }
+    },
+    "replacement": "*",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "<impl TryFrom for Request>::try_from",
+      "return_type": "-> Result<Self, Self::Error>",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 5
+        },
+        "end": {
+          "line": 82,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 42,
+        "column": 21
+      },
+      "end": {
+        "line": 42,
+        "column": 23
+      }
+    },
+    "replacement": "==",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/handlers.rs",
+    "function": {
+      "function_name": "handle_connection",
+      "return_type": "-> Result<(), ParseRequestError>",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 1
+        },
+        "end": {
+          "line": 51,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 12,
+        "column": 5
+      },
+      "end": {
+        "line": 50,
+        "column": 11
+      }
+    },
+    "replacement": "Ok(())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "<impl IntoResponsePart for (T, T)>::into_response_part",
+      "return_type": "-> ResponsePart<T>",
+      "span": {
+        "start": {
+          "line": 205,
+          "column": 5
+        },
+        "end": {
+          "line": 207,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 206,
+        "column": 9
+      },
+      "end": {
+        "line": 206,
+        "column": 45
+      }
+    },
+    "replacement": "ResponsePart::new()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/handlers.rs",
+    "function": {
+      "function_name": "get_user_agent_response",
+      "return_type": "-> Response",
+      "span": {
+        "start": {
+          "line": 70,
+          "column": 1
+        },
+        "end": {
+          "line": 84,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 74,
+        "column": 26
+      },
+      "end": {
+        "line": 74,
+        "column": 28
+      }
+    },
+    "replacement": "!=",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "<impl IntoResponsePart for Vec<(T, T)>>::into_response_part",
+      "return_type": "-> ResponsePart<T>",
+      "span": {
+        "start": {
+          "line": 212,
+          "column": 5
+        },
+        "end": {
+          "line": 214,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 213,
+        "column": 9
+      },
+      "end": {
+        "line": 213,
+        "column": 36
+      }
+    },
+    "replacement": "ResponsePart::new()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response.rs",
+    "function": {
+      "function_name": "Response::to_bytes_vec",
+      "return_type": "-> Vec<u8>",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 39,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 38,
+        "column": 17
+      }
+    },
+    "replacement": "vec![0]",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::not_found",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 5
+        },
+        "end": {
+          "line": 25,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 21,
+        "column": 9
+      },
+      "end": {
+        "line": 24,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::from_iter([Default::default()])",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/handlers.rs",
+    "function": {
+      "function_name": "get_user_agent_response",
+      "return_type": "-> Response",
+      "span": {
+        "start": {
+          "line": 70,
+          "column": 1
+        },
+        "end": {
+          "line": 84,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 71,
+        "column": 5
+      },
+      "end": {
+        "line": 83,
+        "column": 6
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::internal_server_error",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 34,
+          "column": 5
+        },
+        "end": {
+          "line": 39,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 35,
+        "column": 9
+      },
+      "end": {
+        "line": 38,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::new(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/method.rs",
+    "function": {
+      "function_name": "<impl Display for Method>::fmt",
+      "return_type": "-> fmt::Result",
+      "span": {
+        "start": {
+          "line": 39,
+          "column": 5
+        },
+        "end": {
+          "line": 52,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 40,
+        "column": 9
+      },
+      "end": {
+        "line": 51,
+        "column": 32
+      }
+    },
+    "replacement": "Ok(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/error.rs",
+    "function": {
+      "function_name": "ParseRequestError::message",
+      "return_type": "-> &'static str",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 5
+        },
+        "end": {
+          "line": 28,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 21,
+        "column": 9
+      },
+      "end": {
+        "line": 27,
+        "column": 10
+      }
+    },
+    "replacement": "\"\"",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_word",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 94,
+          "column": 1
+        },
+        "end": {
+          "line": 106,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 95,
+        "column": 5
+      },
+      "end": {
+        "line": 105,
+        "column": 29
+      }
+    },
+    "replacement": "Some((\"xyzzy\", \"\"))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_word",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 94,
+          "column": 1
+        },
+        "end": {
+          "line": 106,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 101,
+        "column": 62
+      },
+      "end": {
+        "line": 101,
+        "column": 63
+      }
+    },
+    "replacement": "*",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_word",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 94,
+          "column": 1
+        },
+        "end": {
+          "line": 106,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 101,
+        "column": 62
+      },
+      "end": {
+        "line": 101,
+        "column": 63
+      }
+    },
+    "replacement": "-",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_word",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 94,
+          "column": 1
+        },
+        "end": {
+          "line": 106,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 95,
+        "column": 5
+      },
+      "end": {
+        "line": 105,
+        "column": 29
+      }
+    },
+    "replacement": "Some((\"xyzzy\", \"xyzzy\"))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response.rs",
+    "function": {
+      "function_name": "<impl Display for Response>::fmt",
+      "return_type": "-> std::fmt::Result",
+      "span": {
+        "start": {
+          "line": 43,
+          "column": 5
+        },
+        "end": {
+          "line": 60,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 44,
+        "column": 9
+      },
+      "end": {
+        "line": 59,
+        "column": 10
+      }
+    },
+    "replacement": "Ok(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::not_found",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 5
+        },
+        "end": {
+          "line": 25,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 21,
+        "column": 9
+      },
+      "end": {
+        "line": 24,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::new()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/status_code.rs",
+    "function": {
+      "function_name": "StatusCode::message",
+      "return_type": "-> &'static str",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 20,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 19,
+        "column": 10
+      }
+    },
+    "replacement": "\"xyzzy\"",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "parse_header",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 108,
+          "column": 1
+        },
+        "end": {
+          "line": 110,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 109,
+        "column": 5
+      },
+      "end": {
+        "line": 109,
+        "column": 28
+      }
+    },
+    "replacement": "None",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<S>::header",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 105,
+          "column": 5
+        },
+        "end": {
+          "line": 117,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 108,
+        "column": 25
+      },
+      "end": {
+        "line": 108,
+        "column": 27
+      }
+    },
+    "replacement": "==",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_word",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 94,
+          "column": 1
+        },
+        "end": {
+          "line": 106,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 95,
+        "column": 5
+      },
+      "end": {
+        "line": 105,
+        "column": 29
+      }
+    },
+    "replacement": "None",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<S>::body",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 156,
+          "column": 5
+        },
+        "end": {
+          "line": 174,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 172,
+        "column": 9
+      },
+      "end": {
+        "line": 173,
+        "column": 13
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::ok",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 18,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 17,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::from(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "<impl IntoResponsePart for (T, T)>::into_response_part",
+      "return_type": "-> ResponsePart<T>",
+      "span": {
+        "start": {
+          "line": 205,
+          "column": 5
+        },
+        "end": {
+          "line": 207,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 206,
+        "column": 9
+      },
+      "end": {
+        "line": 206,
+        "column": 45
+      }
+    },
+    "replacement": "ResponsePart::new(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::internal_server_error",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 34,
+          "column": 5
+        },
+        "end": {
+          "line": 39,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 35,
+        "column": 9
+      },
+      "end": {
+        "line": 38,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::from_iter([Default::default()])",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "<impl TryFrom for Request>::try_from",
+      "return_type": "-> Result<Self, Self::Error>",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 5
+        },
+        "end": {
+          "line": 82,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 35,
+        "column": 12
+      },
+      "end": {
+        "line": 35,
+        "column": 13
+      }
+    },
+    "replacement": "",
+    "genre": "UnaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "<impl IntoResponsePart for Vec<(T, T)>>::into_response_part",
+      "return_type": "-> ResponsePart<T>",
+      "span": {
+        "start": {
+          "line": 212,
+          "column": 5
+        },
+        "end": {
+          "line": 214,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 213,
+        "column": 9
+      },
+      "end": {
+        "line": 213,
+        "column": 36
+      }
+    },
+    "replacement": "ResponsePart::from_iter([Default::default()])",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::bad_request",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 5
+        },
+        "end": {
+          "line": 32,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 28,
+        "column": 9
+      },
+      "end": {
+        "line": 31,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::new()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_word",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 94,
+          "column": 1
+        },
+        "end": {
+          "line": 106,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 95,
+        "column": 5
+      },
+      "end": {
+        "line": 105,
+        "column": 29
+      }
+    },
+    "replacement": "Some((\"\", \"\"))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "<impl IntoResponsePart for Vec<(T, T)>>::into_response_part",
+      "return_type": "-> ResponsePart<T>",
+      "span": {
+        "start": {
+          "line": 212,
+          "column": 5
+        },
+        "end": {
+          "line": 214,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 213,
+        "column": 9
+      },
+      "end": {
+        "line": 213,
+        "column": 36
+      }
+    },
+    "replacement": "ResponsePart::new(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::bad_request",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 5
+        },
+        "end": {
+          "line": 32,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 28,
+        "column": 9
+      },
+      "end": {
+        "line": 31,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::from(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/handlers.rs",
+    "function": {
+      "function_name": "get_file_response",
+      "return_type": "-> Response",
+      "span": {
+        "start": {
+          "line": 53,
+          "column": 1
+        },
+        "end": {
+          "line": 68,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 54,
+        "column": 5
+      },
+      "end": {
+        "line": 67,
+        "column": 17
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "get_next_request_line",
+      "return_type": "-> Result<(&str, Lines), ParseRequestError>",
+      "span": {
+        "start": {
+          "line": 85,
+          "column": 1
+        },
+        "end": {
+          "line": 92,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 86,
+        "column": 5
+      },
+      "end": {
+        "line": 91,
+        "column": 29
+      }
+    },
+    "replacement": "Ok((\"\", Default::default()))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/method.rs",
+    "function": {
+      "function_name": "<impl FromStr for Method>::from_str",
+      "return_type": "-> Result<Self, Self::Err>",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 5
+        },
+        "end": {
+          "line": 35,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 23,
+        "column": 9
+      },
+      "end": {
+        "line": 34,
+        "column": 10
+      }
+    },
+    "replacement": "Ok(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "<impl IntoResponsePart for (T, T)>::into_response_part",
+      "return_type": "-> ResponsePart<T>",
+      "span": {
+        "start": {
+          "line": 205,
+          "column": 5
+        },
+        "end": {
+          "line": 207,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 206,
+        "column": 9
+      },
+      "end": {
+        "line": 206,
+        "column": 45
+      }
+    },
+    "replacement": "ResponsePart::from(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::bad_request",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 5
+        },
+        "end": {
+          "line": 32,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 28,
+        "column": 9
+      },
+      "end": {
+        "line": 31,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::new(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response.rs",
+    "function": {
+      "function_name": "Response::to_bytes_vec",
+      "return_type": "-> Vec<u8>",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 39,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 38,
+        "column": 17
+      }
+    },
+    "replacement": "vec![1]",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::ok",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 18,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 17,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::new()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/error.rs",
+    "function": {
+      "function_name": "<impl Display for ParseRequestError>::fmt",
+      "return_type": "-> std::fmt::Result",
+      "span": {
+        "start": {
+          "line": 56,
+          "column": 5
+        },
+        "end": {
+          "line": 58,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 57,
+        "column": 9
+      },
+      "end": {
+        "line": 57,
+        "column": 63
+      }
+    },
+    "replacement": "Ok(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<S>::header",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 105,
+          "column": 5
+        },
+        "end": {
+          "line": 117,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 106,
+        "column": 9
+      },
+      "end": {
+        "line": 116,
+        "column": 13
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response.rs",
+    "function": {
+      "function_name": "Response::to_bytes_vec",
+      "return_type": "-> Vec<u8>",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 39,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 38,
+        "column": 17
+      }
+    },
+    "replacement": "vec![]",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/request.rs",
+    "function": {
+      "function_name": "parse_header",
+      "return_type": "-> Option<(&str, &str)>",
+      "span": {
+        "start": {
+          "line": 108,
+          "column": 1
+        },
+        "end": {
+          "line": 110,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 109,
+        "column": 5
+      },
+      "end": {
+        "line": 109,
+        "column": 28
+      }
+    },
+    "replacement": "Some((\"\", \"xyzzy\"))",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/main.rs",
+    "function": {
+      "function_name": "main",
+      "return_type": "",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 1
+        },
+        "end": {
+          "line": 29,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 16,
+        "column": 38
+      },
+      "end": {
+        "line": 16,
+        "column": 39
+      }
+    },
+    "replacement": "-",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::ok",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 18,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 17,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::new(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/main.rs",
+    "function": {
+      "function_name": "main",
+      "return_type": "",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 1
+        },
+        "end": {
+          "line": 29,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 15,
+        "column": 29
+      },
+      "end": {
+        "line": 15,
+        "column": 31
+      }
+    },
+    "replacement": "!=",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/error.rs",
+    "function": {
+      "function_name": "<impl From for ParseRequestError>::from",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 40,
+          "column": 5
+        },
+        "end": {
+          "line": 44,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 41,
+        "column": 9
+      },
+      "end": {
+        "line": 43,
+        "column": 10
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "<impl IntoResponsePart for (T, T)>::into_response_part",
+      "return_type": "-> ResponsePart<T>",
+      "span": {
+        "start": {
+          "line": 205,
+          "column": 5
+        },
+        "end": {
+          "line": 207,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 206,
+        "column": 9
+      },
+      "end": {
+        "line": 206,
+        "column": 45
+      }
+    },
+    "replacement": "ResponsePart::from_iter([Default::default()])",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/error.rs",
+    "function": {
+      "function_name": "<impl From for ParseRequestError>::from",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 48,
+          "column": 5
+        },
+        "end": {
+          "line": 52,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 49,
+        "column": 9
+      },
+      "end": {
+        "line": 51,
+        "column": 10
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/status_code.rs",
+    "function": {
+      "function_name": "<impl Display for StatusCode>::fmt",
+      "return_type": "-> FmtResult",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 5
+        },
+        "end": {
+          "line": 26,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 25,
+        "column": 9
+      },
+      "end": {
+        "line": 25,
+        "column": 70
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<S>::headers",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 119,
+          "column": 5
+        },
+        "end": {
+          "line": 134,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 121,
+        "column": 9
+      },
+      "end": {
+        "line": 133,
+        "column": 13
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<S>::with",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 63,
+          "column": 5
+        },
+        "end": {
+          "line": 103,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 99,
+        "column": 9
+      },
+      "end": {
+        "line": 102,
+        "column": 10
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/status_code.rs",
+    "function": {
+      "function_name": "StatusCode::message",
+      "return_type": "-> &'static str",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 20,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 14,
+        "column": 9
+      },
+      "end": {
+        "line": 19,
+        "column": 10
+      }
+    },
+    "replacement": "\"\"",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "<impl IntoResponsePart for Vec<(T, T)>>::into_response_part",
+      "return_type": "-> ResponsePart<T>",
+      "span": {
+        "start": {
+          "line": 212,
+          "column": 5
+        },
+        "end": {
+          "line": 214,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 213,
+        "column": 9
+      },
+      "end": {
+        "line": 213,
+        "column": 36
+      }
+    },
+    "replacement": "ResponsePart::from(Default::default())",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/error.rs",
+    "function": {
+      "function_name": "<impl From for ParseRequestError>::from",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 32,
+          "column": 5
+        },
+        "end": {
+          "line": 36,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 33,
+        "column": 9
+      },
+      "end": {
+        "line": 35,
+        "column": 10
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<S>::without_content_length_header",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 137,
+          "column": 5
+        },
+        "end": {
+          "line": 154,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 152,
+        "column": 9
+      },
+      "end": {
+        "line": 153,
+        "column": 13
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/handlers.rs",
+    "function": {
+      "function_name": "get_echo_response",
+      "return_type": "-> Response",
+      "span": {
+        "start": {
+          "line": 86,
+          "column": 1
+        },
+        "end": {
+          "line": 94,
+          "column": 2
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 87,
+        "column": 5
+      },
+      "end": {
+        "line": 93,
+        "column": 6
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<S>::headers",
+      "return_type": "-> Self",
+      "span": {
+        "start": {
+          "line": 119,
+          "column": 5
+        },
+        "end": {
+          "line": 134,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 124,
+        "column": 53
+      },
+      "end": {
+        "line": 124,
+        "column": 55
+      }
+    },
+    "replacement": "==",
+    "genre": "BinaryOperator"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<StatusCode>::build",
+      "return_type": "-> Response",
+      "span": {
+        "start": {
+          "line": 43,
+          "column": 5
+        },
+        "end": {
+          "line": 59,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 45,
+        "column": 9
+      },
+      "end": {
+        "line": 58,
+        "column": 10
+      }
+    },
+    "replacement": "Default::default()",
+    "genre": "FnValue"
+  },
+  {
+    "package": "http-server-starter-rust",
+    "file": "src/http/response_builder.rs",
+    "function": {
+      "function_name": "ResponseBuilder<MissingStatusCode>::internal_server_error",
+      "return_type": "-> ResponseBuilder<StatusCode>",
+      "span": {
+        "start": {
+          "line": 34,
+          "column": 5
+        },
+        "end": {
+          "line": 39,
+          "column": 6
+        }
+      }
+    },
+    "span": {
+      "start": {
+        "line": 35,
+        "column": 9
+      },
+      "end": {
+        "line": 38,
+        "column": 10
+      }
+    },
+    "replacement": "ResponseBuilder::from(Default::default())",
+    "genre": "FnValue"
+  }
+]

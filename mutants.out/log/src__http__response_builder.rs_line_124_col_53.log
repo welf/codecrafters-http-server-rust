@@ -1,0 +1,78 @@
+
+*** src/http/response_builder.rs:124:53: replace != with == in ResponseBuilder<S>::headers
+
+*** mutation diff:
+--- src/http/response_builder.rs
++++ replace != with == in ResponseBuilder<S>::headers
+@@ -116,17 +116,17 @@
+         self
+     }
+ 
+     fn headers(mut self, headers: Vec<(impl Into<String>, impl Into<String>)>) -> Self {
+         // Filter out the Content-Length header and convert headers' keys and values to owned strings
+         let headers = headers
+             .into_iter()
+             .map(|(key, value)| -> (String, String) { (key.into(), value.into()) })
+-            .filter(|(key, _)| key.clone().as_str() != "Content-Length")
++            .filter(|(key, _)| key.clone().as_str() == /* ~ changed by cargo-mutants ~ */ "Content-Length")
+             .collect::<Vec<_>>();
+ 
+         if let Some(ref mut existing_headers) = self.headers {
+             existing_headers.extend(headers); // Extend existing headers
+         } else {
+             self.headers = Some(headers); // Set the headers
+         }
+ 
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.24s
+  Executable unittests src/main.rs (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/target/debug/deps/http_server_starter_rust-21207571861bdde5)
+
+*** result: Success
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running unittests src/main.rs (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/target/debug/deps/http_server_starter_rust-21207571861bdde5)
+
+running 20 tests
+test handlers::tests::test_get_user_agent_response ... ok
+test handlers::tests::test_get_echo_response ... ok
+test http::request::tests::test_get_next_request_line ... ok
+test handlers::tests::test_get_user_agent_response_no_user_agent ... ok
+test http::request::tests::test_get_next_word ... ok
+test http::request::tests::test_parse_header ... ok
+test http::request::tests::test_try_from_request ... ok
+test http::response::tests::test_response_to_string ... ok
+test http::response::tests::test_response_to_bytes_vec ... ok
+test http::response_builder::tests::test_response_builder_bad_request ... ok
+test http::response_builder::tests::test_response_builder_body ... ok
+test http::response_builder::tests::test_response_builder_default ... ok
+test http::response_builder::tests::test_response_builder_internal_server_error ... ok
+test http::response_builder::tests::test_response_builder_not_found ... ok
+test http::response_builder::tests::test_response_builder_ok ... ok
+test http::response_builder::tests::test_without_content_length_header ... ok
+test http::status_code::tests::status_code_display ... ok
+test handlers::tests::test_get_file_response ... ok
+test http::status_code::tests::status_code_message ... ok
+test http::response_builder::tests::test_response_builder_with ... FAILED
+
+failures:
+
+---- http::response_builder::tests::test_response_builder_with stdout ----
+thread 'http::response_builder::tests::test_response_builder_with' panicked at src/http/response_builder.rs:341:9:
+assertion `left == right` failed: Three headers should be set
+  left: 1
+ right: 3
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    http::response_builder::tests::test_response_builder_with
+
+test result: FAILED. 19 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--bin http-server-starter-rust`
+
+*** result: Failure(101)

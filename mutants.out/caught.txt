@@ -1,0 +1,31 @@
+src/http/request.rs:109:5: replace parse_header -> Option<(&str, &str)> with Some(("xyzzy", "xyzzy"))
+src/http/request.rs:109:5: replace parse_header -> Option<(&str, &str)> with Some(("", ""))
+src/http/request.rs:100:14: replace == with != in get_next_word
+src/http/request.rs:109:5: replace parse_header -> Option<(&str, &str)> with Some(("xyzzy", ""))
+src/http/response_builder.rs:21:9: replace ResponseBuilder<MissingStatusCode>::not_found -> ResponseBuilder<StatusCode> with ResponseBuilder::from(Default::default())
+src/http/request.rs:95:5: replace get_next_word -> Option<(&str, &str)> with Some(("", "xyzzy"))
+src/http/request.rs:42:21: replace != with == in <impl TryFrom for Request>::try_from
+src/handlers.rs:74:26: replace == with != in get_user_agent_response
+src/http/response.rs:14:9: replace Response::to_bytes_vec -> Vec<u8> with vec![0]
+src/handlers.rs:71:5: replace get_user_agent_response -> Response with Default::default()
+src/http/request.rs:95:5: replace get_next_word -> Option<(&str, &str)> with Some(("xyzzy", ""))
+src/http/request.rs:101:62: replace + with * in get_next_word
+src/http/request.rs:101:62: replace + with - in get_next_word
+src/http/request.rs:95:5: replace get_next_word -> Option<(&str, &str)> with Some(("xyzzy", "xyzzy"))
+src/http/response.rs:44:9: replace <impl Display for Response>::fmt -> std::fmt::Result with Ok(Default::default())
+src/http/status_code.rs:14:9: replace StatusCode::message -> &'static str with "xyzzy"
+src/http/request.rs:109:5: replace parse_header -> Option<(&str, &str)> with None
+src/http/response_builder.rs:108:25: replace != with == in ResponseBuilder<S>::header
+src/http/request.rs:95:5: replace get_next_word -> Option<(&str, &str)> with None
+src/http/request.rs:35:12: delete ! in <impl TryFrom for Request>::try_from
+src/http/request.rs:95:5: replace get_next_word -> Option<(&str, &str)> with Some(("", ""))
+src/http/response_builder.rs:28:9: replace ResponseBuilder<MissingStatusCode>::bad_request -> ResponseBuilder<StatusCode> with ResponseBuilder::from(Default::default())
+src/handlers.rs:54:5: replace get_file_response -> Response with Default::default()
+src/http/response.rs:14:9: replace Response::to_bytes_vec -> Vec<u8> with vec![1]
+src/http/response.rs:14:9: replace Response::to_bytes_vec -> Vec<u8> with vec![]
+src/http/request.rs:109:5: replace parse_header -> Option<(&str, &str)> with Some(("", "xyzzy"))
+src/http/status_code.rs:14:9: replace StatusCode::message -> &'static str with ""
+src/handlers.rs:87:5: replace get_echo_response -> Response with Default::default()
+src/http/response_builder.rs:124:53: replace != with == in ResponseBuilder<S>::headers
+src/http/response_builder.rs:45:9: replace ResponseBuilder<StatusCode>::build -> Response with Default::default()
+src/http/response_builder.rs:35:9: replace ResponseBuilder<MissingStatusCode>::internal_server_error -> ResponseBuilder<StatusCode> with ResponseBuilder::from(Default::default())

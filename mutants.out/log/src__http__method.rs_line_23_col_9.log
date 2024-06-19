@@ -1,0 +1,50 @@
+
+*** src/http/method.rs:23:9: replace <impl FromStr for Method>::from_str -> Result<Self, Self::Err> with Ok(Default::default())
+
+*** mutation diff:
+--- src/http/method.rs
++++ replace <impl FromStr for Method>::from_str -> Result<Self, Self::Err> with Ok(Default::default())
+@@ -15,28 +15,17 @@
+     Connect,
+     Trace,
+ }
+ 
+ impl FromStr for Method {
+     type Err = MethodError;
+ 
+     fn from_str(s: &str) -> Result<Self, Self::Err> {
+-        match s {
+-            "GET" => Ok(Self::Get),
+-            "POST" => Ok(Self::Post),
+-            "PUT" => Ok(Self::Put),
+-            "DELETE" => Ok(Self::Delete),
+-            "PATCH" => Ok(Self::Patch),
+-            "OPTIONS" => Ok(Self::Options),
+-            "HEAD" => Ok(Self::Head),
+-            "CONNECT" => Ok(Self::Connect),
+-            "TRACE" => Ok(Self::Trace),
+-            _ => Err(MethodError),
+-        }
++        Ok(Default::default()) /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ impl Display for Method {
+     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+         let method = match self {
+             Self::Get => "GET",
+             Self::Post => "POST",
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+error[E0277]: the trait bound `method::Method: std::default::Default` is not satisfied
+  --> src/http/method.rs:23:12
+   |
+23 |         Ok(Default::default()) /* ~ changed by cargo-mutants ~ */
+   |            ^^^^^^^^^^^^^^^^^^ the trait `std::default::Default` is not implemented for `method::Method`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `http-server-starter-rust` (bin "http-server-starter-rust" test) due to 1 previous error
+
+*** result: Failure(101)

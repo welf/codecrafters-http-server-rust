@@ -65,9 +65,9 @@ mod tests {
     use crate::http::ResponseBuilder;
 
     #[test]
-    fn response_to_bytes_vec() {
+    fn test_response_to_bytes_vec() {
         let response = ResponseBuilder::ok()
-            .header("Content-Type", "text/plain")
+            .with(("Content-Type", "text/plain"))
             .body("Hello, World!")
             .build();
         let expected = b"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!".to_vec();
@@ -80,10 +80,10 @@ mod tests {
     }
 
     #[test]
-    fn response_to_string() {
+    fn test_response_to_string() {
         let response = ResponseBuilder::ok()
-            .header("Content-Type", "text/plain")
-            .body(b"Hello, World!".to_vec())
+            .with(("Content-Type", "text/plain"))
+            .body("Hello, World!")
             .build();
         let expected = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!";
 

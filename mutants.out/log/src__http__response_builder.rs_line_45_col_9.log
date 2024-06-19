@@ -1,0 +1,175 @@
+
+*** src/http/response_builder.rs:45:9: replace ResponseBuilder<StatusCode>::build -> Response with Default::default()
+
+*** mutation diff:
+--- src/http/response_builder.rs
++++ replace ResponseBuilder<StatusCode>::build -> Response with Default::default()
+@@ -37,30 +37,17 @@
+             ..Default::default()
+         }
+     }
+ }
+ 
+ impl ResponseBuilder<StatusCode> {
+     pub fn build(self) -> Response {
+         // Calculate the Content-Length header value
+-        let content_length = self.body.as_ref().map(|b| b.len()).unwrap_or(0);
+-        let mut headers = self.headers.unwrap_or_default();
+-
+-        // Set the Content-Length header if the `without_content_length_header` method was not called
+-        match self.set_content_length_header {
+-            false => (), // No Content-Length header for empty bodies
+-            true => headers.push(("Content-Length".to_string(), content_length.to_string())),
+-        }
+-
+-        Response {
+-            status_code: self.status_code,
+-            headers,
+-            body: self.body,
+-        }
++        Default::default() /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ impl<S> ResponseBuilder<S> {
+     /// # Set header(s) on the response.
+     ///
+     /// You can set a single header multiple times, or multiple headers at once.
+     ///
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.24s
+  Executable unittests src/main.rs (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/target/debug/deps/http_server_starter_rust-21207571861bdde5)
+
+*** result: Success
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running unittests src/main.rs (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/target/debug/deps/http_server_starter_rust-21207571861bdde5)
+
+running 20 tests
+test http::request::tests::test_get_next_request_line ... ok
+test http::request::tests::test_parse_header ... ok
+test http::request::tests::test_get_next_word ... ok
+test http::request::tests::test_try_from_request ... ok
+test handlers::tests::test_get_user_agent_response ... FAILED
+test handlers::tests::test_get_echo_response ... FAILED
+test handlers::tests::test_get_user_agent_response_no_user_agent ... FAILED
+test http::response::tests::test_response_to_string ... FAILED
+test http::response::tests::test_response_to_bytes_vec ... FAILED
+test http::response_builder::tests::test_response_builder_bad_request ... FAILED
+test http::response_builder::tests::test_response_builder_body ... FAILED
+test http::response_builder::tests::test_response_builder_internal_server_error ... FAILED
+test http::response_builder::tests::test_response_builder_default ... FAILED
+test http::response_builder::tests::test_response_builder_ok ... ok
+test http::response_builder::tests::test_response_builder_not_found ... FAILED
+test http::response_builder::tests::test_response_builder_with ... FAILED
+test http::status_code::tests::status_code_display ... ok
+test http::response_builder::tests::test_without_content_length_header ... FAILED
+test http::status_code::tests::status_code_message ... ok
+test handlers::tests::test_get_file_response ... FAILED
+
+failures:
+
+---- handlers::tests::test_get_user_agent_response stdout ----
+thread 'handlers::tests::test_get_user_agent_response' panicked at src/handlers.rs:117:9:
+assertion `left == right` failed
+  left: []
+ right: [("Content-Type", "text/plain"), ("Content-Length", "11")]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- handlers::tests::test_get_echo_response stdout ----
+thread 'handlers::tests::test_get_echo_response' panicked at src/handlers.rs:150:9:
+assertion `left == right` failed
+  left: []
+ right: [("Content-Type", "text/plain"), ("Content-Length", "13")]
+
+---- handlers::tests::test_get_user_agent_response_no_user_agent stdout ----
+thread 'handlers::tests::test_get_user_agent_response_no_user_agent' panicked at src/handlers.rs:127:9:
+assertion `left == right` failed
+  left: Ok
+ right: BadRequest
+
+---- http::response::tests::test_response_to_string stdout ----
+thread 'http::response::tests::test_response_to_string' panicked at src/http/response.rs:90:9:
+assertion `left == right` failed: Response should be converted to string
+  left: "HTTP/1.1 200 OK\r\n\r\n"
+ right: "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 13\r\n\r\nHello, World!"
+
+---- http::response::tests::test_response_to_bytes_vec stdout ----
+thread 'http::response::tests::test_response_to_bytes_vec' panicked at src/http/response.rs:75:9:
+assertion `left == right` failed: Response should be converted to bytes vector
+  left: [72, 84, 84, 80, 47, 49, 46, 49, 32, 50, 48, 48, 32, 79, 75, 13, 10, 13, 10]
+ right: [72, 84, 84, 80, 47, 49, 46, 49, 32, 50, 48, 48, 32, 79, 75, 13, 10, 67, 111, 110, 116, 101, 110, 116, 45, 84, 121, 112, 101, 58, 32, 116, 101, 120, 116, 47, 112, 108, 97, 105, 110, 13, 10, 67, 111, 110, 116, 101, 110, 116, 45, 76, 101, 110, 103, 116, 104, 58, 32, 49, 51, 13, 10, 13, 10, 72, 101, 108, 108, 111, 44, 32, 87, 111, 114, 108, 100, 33]
+
+---- http::response_builder::tests::test_response_builder_bad_request stdout ----
+thread 'http::response_builder::tests::test_response_builder_bad_request' panicked at src/http/response_builder.rs:253:9:
+assertion `left == right` failed: Status code should be 400 Bad Request
+  left: Ok
+ right: BadRequest
+
+---- http::response_builder::tests::test_response_builder_body stdout ----
+thread 'http::response_builder::tests::test_response_builder_body' panicked at src/http/response_builder.rs:340:27:
+called `Option::unwrap()` on a `None` value
+
+---- http::response_builder::tests::test_response_builder_internal_server_error stdout ----
+thread 'http::response_builder::tests::test_response_builder_internal_server_error' panicked at src/http/response_builder.rs:263:9:
+assertion `left == right` failed: Status code should be 500 Internal Server Error
+  left: Ok
+ right: InternalServerError
+
+---- http::response_builder::tests::test_response_builder_default stdout ----
+thread 'http::response_builder::tests::test_response_builder_default' panicked at src/http/response_builder.rs:217:9:
+assertion `left == right` failed: Headers should contain Content-Length: 0
+  left: []
+ right: [("Content-Length", "0")]
+
+---- http::response_builder::tests::test_response_builder_not_found stdout ----
+thread 'http::response_builder::tests::test_response_builder_not_found' panicked at src/http/response_builder.rs:243:9:
+assertion `left == right` failed: Status code should be 404 Not Found
+  left: Ok
+ right: NotFound
+
+---- http::response_builder::tests::test_response_builder_with stdout ----
+thread 'http::response_builder::tests::test_response_builder_with' panicked at src/http/response_builder.rs:311:9:
+assertion `left == right` failed: One header should be set
+  left: 0
+ right: 1
+
+---- http::response_builder::tests::test_without_content_length_header stdout ----
+[src/http/response_builder.rs:276:9] &response.headers = []
+thread 'http::response_builder::tests::test_without_content_length_header' panicked at src/http/response_builder.rs:285:9:
+assertion `left == right` failed: Headers should contain Content-Length: 0
+  left: []
+ right: [("Content-Length", "0")]
+
+---- handlers::tests::test_get_file_response stdout ----
+[src/handlers.rs:181:9] &file_path = "/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/tmp/files/test.txt"
+thread 'handlers::tests::test_get_file_response' panicked at src/handlers.rs:194:9:
+assertion `left == right` failed
+  left: []
+ right: [("Content-Type", "application/octet-stream"), ("Content-Length", "11")]
+
+
+failures:
+    handlers::tests::test_get_echo_response
+    handlers::tests::test_get_file_response
+    handlers::tests::test_get_user_agent_response
+    handlers::tests::test_get_user_agent_response_no_user_agent
+    http::response::tests::test_response_to_bytes_vec
+    http::response::tests::test_response_to_string
+    http::response_builder::tests::test_response_builder_bad_request
+    http::response_builder::tests::test_response_builder_body
+    http::response_builder::tests::test_response_builder_default
+    http::response_builder::tests::test_response_builder_internal_server_error
+    http::response_builder::tests::test_response_builder_not_found
+    http::response_builder::tests::test_response_builder_with
+    http::response_builder::tests::test_without_content_length_header
+
+test result: FAILED. 7 passed; 13 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--bin http-server-starter-rust`
+
+*** result: Failure(101)

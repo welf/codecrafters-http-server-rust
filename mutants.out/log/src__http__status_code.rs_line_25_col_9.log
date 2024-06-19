@@ -1,0 +1,39 @@
+
+*** src/http/status_code.rs:25:9: replace <impl Display for StatusCode>::fmt -> FmtResult with Default::default()
+
+*** mutation diff:
+--- src/http/status_code.rs
++++ replace <impl Display for StatusCode>::fmt -> FmtResult with Default::default()
+@@ -17,17 +17,17 @@
+             StatusCode::NotFound => "Not Found",
+             StatusCode::InternalServerError => "Internal Server Error",
+         }
+     }
+ }
+ 
+ impl Display for StatusCode {
+     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> FmtResult {
+-        write!(f, "HTTP/1.1 {} {}\r\n", *self as u16, self.message())
++        Default::default() /* ~ changed by cargo-mutants ~ */
+     }
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+ 
+     #[test]
+
+
+*** /Users/aw/.rustup/toolchains/stable-aarch64-apple-darwin/bin/cargo test --no-run --manifest-path /var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp/Cargo.toml --all-features
+   Compiling http-server-starter-rust v0.1.0 (/var/folders/dk/rmy45p9s5bn3y62kyrkfh6440000gn/T/cargo-mutants-codecrafters-http-server-rust-eXV76S.tmp)
+error[E0277]: the trait bound `Result<(), std::fmt::Error>: std::default::Default` is not satisfied
+  --> src/http/status_code.rs:25:9
+   |
+25 |         Default::default() /* ~ changed by cargo-mutants ~ */
+   |         ^^^^^^^^^^^^^^^^^^ the trait `std::default::Default` is not implemented for `Result<(), std::fmt::Error>`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `http-server-starter-rust` (bin "http-server-starter-rust" test) due to 1 previous error
+
+*** result: Failure(101)
