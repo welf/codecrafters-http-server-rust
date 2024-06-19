@@ -4,6 +4,7 @@ use std::fmt::{Display, Result as FmtResult};
 pub enum StatusCode {
     #[default]
     Ok = 200,
+    Created = 201,
     BadRequest = 400,
     NotFound = 404,
     InternalServerError = 500,
@@ -13,6 +14,7 @@ impl StatusCode {
     pub fn message(&self) -> &'static str {
         match self {
             StatusCode::Ok => "OK",
+            StatusCode::Created => "Created",
             StatusCode::BadRequest => "Bad Request",
             StatusCode::NotFound => "Not Found",
             StatusCode::InternalServerError => "Internal Server Error",
@@ -38,6 +40,11 @@ mod tests {
             "Status code 200 should be OK"
         );
         assert_eq!(
+            StatusCode::Created.message(),
+            "Created",
+            "Status code 201 should be Created"
+        );
+        assert_eq!(
             StatusCode::BadRequest.message(),
             "Bad Request",
             "Status code 400 should be Bad Request"
@@ -60,6 +67,11 @@ mod tests {
             format!("{}", StatusCode::Ok),
             "HTTP/1.1 200 OK\r\n",
             "Status code string 200 should be OK"
+        );
+        assert_eq!(
+            format!("{}", StatusCode::Created),
+            "HTTP/1.1 201 Created\r\n",
+            "Status code string 201 should be Created"
         );
         assert_eq!(
             format!("{}", StatusCode::BadRequest),

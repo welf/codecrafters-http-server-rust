@@ -10,6 +10,24 @@ pub struct ResponseBuilder<S> {
 }
 
 impl ResponseBuilder<MissingStatusCode> {
+    pub fn new() -> ResponseBuilder<MissingStatusCode> {
+        ResponseBuilder {
+            status_code: MissingStatusCode,
+            headers: None,
+            body: None,
+            set_content_length_header: true,
+        }
+    }
+
+    pub fn with_status_code(self, status_code: StatusCode) -> ResponseBuilder<StatusCode> {
+        ResponseBuilder {
+            status_code,
+            headers: self.headers,
+            body: self.body,
+            set_content_length_header: self.set_content_length_header,
+        }
+    }
+
     pub fn ok() -> ResponseBuilder<StatusCode> {
         ResponseBuilder {
             status_code: StatusCode::Ok,
