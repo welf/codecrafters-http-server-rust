@@ -4,7 +4,7 @@ use tokio::{
     net::TcpStream,
 };
 
-use crate::http::{Method, ParseRequestError, Request, Response, ResponseBuilder, StatusCode};
+use crate::http::{Method, ParseRequestError, Request, ResponseBuilder, StatusCode};
 
 pub async fn handle_connection(
     mut stream: TcpStream,
@@ -19,15 +19,19 @@ pub async fn handle_connection(
     let path = request.uri.as_str();
     let method = request.method;
 
-    let response = match path {
+    let accept_encoding_gzip_header = request
+        .headers
+        .iter()
+        .find(|(k, v)| k == "Accept-Encoding" && (v == "gzip" || v.contains("gzip")));
+
+    let response_builder = match path {
         "/" => ResponseBuilder::ok()
             .with(vec![
                 ("Connection", "Keep-Alive"),
                 ("Keep-Alive", "timeout=5, max=1000"),
             ])
             // Disable Content-Length header generation to pass codecrafters tests
-            .without_content_length_header()
-            .build(),
+            .without_content_length_header(),
 
         "/user-agent" => get_user_agent_response(&request),
 
@@ -40,9 +44,14 @@ pub async fn handle_connection(
                     _ => get_file_response(other.trim_start_matches("/files/"), files_dir).await,
                 }
             } else {
-                ResponseBuilder::not_found().build()
+                ResponseBuilder::not_found()
             }
         }
+    };
+
+    let response = match accept_encoding_gzip_header {
+        Some(_) => response_builder.with(("Content-Encoding", "gzip")).build(),
+        None => response_builder.build(),
     };
 
     stream
@@ -55,7 +64,7 @@ pub async fn handle_connection(
     Ok(())
 }
 
-async fn post_file_response(request: &Request, files_dir: &String) -> Response {
+async fn post_file_response(request: &Request, files_dir: &String) -> ResponseBuilder<StatusCode> {
     let file_name = request.uri.as_str().trim_start_matches("/files/");
 
     let path = format!("{}/{}", files_dir, file_name);
@@ -67,11 +76,7 @@ async fn post_file_response(request: &Request, files_dir: &String) -> Response {
         .await
     {
         Ok(file) => file,
-        Err(_) => {
-            return ResponseBuilder::internal_server_error()
-                .without_content_length_header()
-                .build()
-        }
+        Err(_) => return ResponseBuilder::internal_server_error().without_content_length_header(),
     };
 
     let file_content = request.body.as_ref();
@@ -79,30 +84,24 @@ async fn post_file_response(request: &Request, files_dir: &String) -> Response {
     match file.write(file_content).await {
         Ok(_) => ResponseBuilder::new()
             .with_status_code(StatusCode::Created)
-            .without_content_length_header()
-            .build(),
-        Err(_) => ResponseBuilder::bad_request().build(),
+            .without_content_length_header(),
+        Err(_) => ResponseBuilder::bad_request(),
     }
 }
 
-async fn get_file_response(file_name: &str, files_dir: &String) -> Response {
+async fn get_file_response(file_name: &str, files_dir: &String) -> ResponseBuilder<StatusCode> {
     let path = format!("{}/{}", files_dir, file_name);
     let file = match tokio::fs::read(path).await {
         Ok(file) => file,
-        Err(_) => {
-            return ResponseBuilder::not_found()
-                .without_content_length_header()
-                .build()
-        }
+        Err(_) => return ResponseBuilder::not_found().without_content_length_header(),
     };
 
     ResponseBuilder::ok()
         .with(("Content-Type", "application/octet-stream"))
         .body(file)
-        .build()
 }
 
-fn get_user_agent_response(request: &Request) -> Response {
+fn get_user_agent_response(request: &Request) -> ResponseBuilder<StatusCode> {
     let user_agent = request
         .headers
         .iter()
@@ -112,19 +111,18 @@ fn get_user_agent_response(request: &Request) -> Response {
     match user_agent {
         Some(user_agent) => ResponseBuilder::ok()
             .with(("Content-Type", "text/plain"))
-            .body(user_agent.as_bytes().to_vec())
-            .build(),
-        None => ResponseBuilder::bad_request().build(),
+            .body(user_agent.as_bytes().to_vec()),
+        None => ResponseBuilder::bad_request(),
     }
 }
 
-fn get_echo_response(content: &str) -> Response {
+fn get_echo_response(content: &str) -> ResponseBuilder<StatusCode> {
     let response_builder = ResponseBuilder::ok().with(("Content-Type", "text/plain"));
 
     if content.is_empty() {
-        response_builder.build()
+        response_builder
     } else {
-        response_builder.body(content).build()
+        response_builder.body(content)
     }
 }
 
@@ -141,7 +139,8 @@ mod tests {
             Request::try_from("GET /user-agent HTTP/1.1\r\nUser-Agent: curl/7.68.0\r\n\r\n")
                 .unwrap();
 
-        let response = get_user_agent_response(&request);
+        let response_builder = get_user_agent_response(&request);
+        let response = response_builder.build();
 
         let body_len_str = "curl/7.68.0".len().to_string();
         let headers: Vec<(String, String)> = vec![
@@ -157,7 +156,8 @@ mod tests {
         // Test for no user agent
         let request = Request::try_from("GET /user-agent HTTP/1.1\r\n\r\n").unwrap();
 
-        let response = get_user_agent_response(&request);
+        let response_builder = get_user_agent_response(&request);
+        let response = response_builder.build();
 
         assert_eq!(response.status_code, StatusCode::BadRequest);
         assert_eq!(
@@ -175,7 +175,8 @@ mod tests {
 
         let path = request.uri.as_str().trim_start_matches("/echo/");
 
-        let response = get_echo_response(path);
+        let response_builder = get_echo_response(path);
+        let response = response_builder.build();
 
         let body_len_str = b"Hello%20World".len().to_string();
         let headers: Vec<(String, String)> = vec![
@@ -193,7 +194,9 @@ mod tests {
 
         let path = request.uri.as_str().trim_start_matches("/echo/");
 
-        let response = get_echo_response(path);
+        let response_builder = get_echo_response(path);
+        let response = response_builder.build();
+
         let headers: Vec<(String, String)> = vec![
             ("Content-Type".to_string(), "text/plain".to_string()),
             ("Content-Length".to_string(), "0".to_string()),
@@ -209,28 +212,28 @@ mod tests {
         //======================================================================
         // Test for file found
         let root_dir = env!("CARGO_MANIFEST_DIR");
-        let tmp_dir = format!("{}/tmp", root_dir);
+        let tmp_dir = format!("{}/temp", root_dir);
         let files_dir = format!("{}/files", tmp_dir);
         let file_name = "test.txt";
         let file_content = "Hello World";
 
         // Create files directory if it doesn't exist
-        tokio::fs::create_dir_all(&files_dir).await.unwrap();
+        std::fs::create_dir_all(&files_dir).unwrap();
 
         // Create temporary file
         let file_path = format!("{}/{}", files_dir, file_name);
 
-        OpenOptions::new()
+        std::fs::OpenOptions::new()
             .write(true)
             .create(true)
             .truncate(true)
             .open(&file_path)
-            .await
             .unwrap();
 
-        tokio::fs::write(file_path, file_content).await.unwrap();
+        std::fs::write(file_path, file_content).unwrap();
 
-        let response = get_file_response(file_name, &files_dir).await;
+        let response_builder = get_file_response(file_name, &files_dir).await;
+        let response = response_builder.build();
 
         assert_eq!(response.status_code, StatusCode::Ok);
         assert_eq!(
@@ -246,11 +249,12 @@ mod tests {
         assert_eq!(response.body, Some(file_content.as_bytes().to_vec()));
 
         // Remove temporary directory and its contents
-        tokio::fs::remove_dir_all(tmp_dir).await.unwrap();
+        std::fs::remove_dir_all(tmp_dir).unwrap();
 
         //======================================================================
         // Test file not found
-        let response = get_file_response(file_name, &files_dir).await;
+        let response_builder = get_file_response(file_name, &files_dir).await;
+        let response = response_builder.build();
 
         assert_eq!(response.status_code, StatusCode::NotFound);
         assert!(response.headers.is_empty());
@@ -268,7 +272,7 @@ mod tests {
         let file_content = "Hello World";
 
         // Create files directory if it doesn't exist
-        tokio::fs::create_dir_all(&files_dir).await.unwrap();
+        std::fs::create_dir_all(&files_dir).unwrap();
 
         let request = Request::try_from(
             format!(
@@ -281,7 +285,8 @@ mod tests {
         )
         .unwrap();
 
-        let response = post_file_response(&request, &files_dir).await;
+        let response_builder = post_file_response(&request, &files_dir).await;
+        let response = response_builder.build();
 
         assert_eq!(response.status_code, StatusCode::Created);
         assert!(response.headers.is_empty());
@@ -289,18 +294,19 @@ mod tests {
 
         // Check if file was created
         let file_path = format!("{}/{}", files_dir, file_name);
-        let file_content = tokio::fs::read_to_string(file_path).await.unwrap();
+        let file_content = std::fs::read_to_string(file_path).unwrap();
 
         assert_eq!(file_content, "Hello World");
 
         // Remove temporary directory and its contents
-        tokio::fs::remove_dir_all(tmp_dir).await.unwrap();
+        std::fs::remove_dir_all(tmp_dir).unwrap();
 
         //======================================================================
         // Test for file not created
         let request = Request::try_from("POST /files/test.txt HTTP/1.1\r\n\r\n").unwrap();
 
-        let response = post_file_response(&request, &files_dir).await;
+        let response_builder = post_file_response(&request, &files_dir).await;
+        let response = response_builder.build();
 
         assert_eq!(response.status_code, StatusCode::InternalServerError);
         assert!(response.headers.is_empty());
