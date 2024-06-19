@@ -21,7 +21,7 @@ a configurable number of threads *(deprecated in favor of async/await)*
   - [x] `/` - returns `200 OK` status code
   - [x] `/echo/<string_to_return>` - echoes the string passed by user in the URL
   - [x] `/user-agent` - echoes the `User-Agent` header value
-  - [ ] `/files/{filename}` - returns the content of the file with the name `filename` in the specified directory
+  - [x] `/files/{filename}` - returns the content of the file with the name `filename` in the specified directory
   - [ ] `/files/{filename}` - saves the content of the response to the file with the name `filename` in the specified directory
 
 # Running the Server
