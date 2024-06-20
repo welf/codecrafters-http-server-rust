@@ -1,5 +1,7 @@
+use flate2::{write::GzEncoder, Compression};
+
 use super::{Response, StatusCode};
-use std::default::Default;
+use std::{default::Default, io::Write};
 
 #[derive(Clone, Debug)]
 pub struct ResponseBuilder<S> {
@@ -59,9 +61,32 @@ impl ResponseBuilder<MissingStatusCode> {
 
 impl ResponseBuilder<StatusCode> {
     pub fn build(self) -> Response {
-        // Calculate the Content-Length header value
-        let content_length = self.body.as_ref().map(|b| b.len()).unwrap_or(0);
         let mut headers = self.headers.unwrap_or_default();
+
+        // Check if the Content-Encoding header is set to "gzip"
+        let content_encoding_header = headers
+            .iter()
+            .find(|(k, v)| k == "Content-Encoding" && v == "gzip");
+
+        let encoded_body = match self.body {
+            Some(body) => match content_encoding_header {
+                // If the Content-Encoding header is set to "gzip", encode the body
+                Some(_) => {
+                    let mut new_body = Vec::new();
+                    let mut encoder = GzEncoder::new(&mut new_body, Compression::default());
+                    encoder.write_all(&body).unwrap();
+                    encoder.finish().unwrap();
+                    Some(new_body)
+                }
+                // If the Content-Encoding header is not set to "gzip", return the body as is
+                None => Some(body),
+            },
+            // If there the body is None, return it as is
+            None => None,
+        };
+
+        // Calculate the Content-Length header value
+        let content_length = encoded_body.as_ref().map(|b| b.len()).unwrap_or(0);
 
         // Set the Content-Length header if the `without_content_length_header` method was not called
         match self.set_content_length_header {
@@ -72,7 +97,7 @@ impl ResponseBuilder<StatusCode> {
         Response {
             status_code: self.status_code,
             headers,
-            body: self.body,
+            body: encoded_body,
         }
     }
 }

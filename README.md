@@ -16,7 +16,8 @@ implementation includes:
 - [x] support for concurrent connections handling [using thread pool](./src/http/thread_pool.rs) with
 a configurable number of threads *(deprecated in favor of async/await)*
 - [x] support for concurrent connections handling using multi-threading with async/await
-- [ ] compression support for the server
+- [x] compression support for the server using the `flate2` crate:
+  - [x] compresses the response body if the client supports it
 - support for the following endpoints:
   - [x] `/` - returns `200 OK` status code
   - [x] `/echo/<string_to_return>` - echoes the string passed by user in the URL
